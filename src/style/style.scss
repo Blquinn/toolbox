@@ -1,0 +1,9 @@
+@import '../../node_modules/bulmaswatch/darkly/_variables';
+@import '../../node_modules/bulma/bulma';
+@import '../../node_modules/bulmaswatch/darkly/_overrides';
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
