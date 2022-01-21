@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import ExpandableMenu from "./components/ExpandableMenu.svelte";
+	import BaseNEncoder from "./components/BaseNEncoder.svelte";
+	import FaFontWoff from '@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2';
 	export let name: string;
 
 	onMount(() => {
@@ -8,13 +11,34 @@
 </script>
 
 <main>
-	<div class="menu-col">
-		<div class="actual-menu">
-			<h2 class="title">I'm the menu!</h2>
-		</div>
+	<div class="menu-col noselect">
+		<aside class="menu">
+			<p class="menu-label">All Tools</p>
+			<ExpandableMenu
+					sectionTitle="Converters"
+					sections={[
+							'HTML',
+							'URL',
+							'Base 64',
+							'JWT Decoder',
+					]}
+					activeSection="Base 64"
+			/>
+			<ExpandableMenu
+					sectionTitle="Encoders / Decoders"
+					sections={[
+							'HTML',
+							'URL',
+							'Base 64',
+							'JWT Decoder',
+					]}
+					activeSection="Base 64"
+			/>
+		</aside>
 	</div>
 
 	<div class="content-col">
+		<BaseNEncoder />
 	</div>
 </main>
 
@@ -30,7 +54,9 @@
 
 		.menu-col {
 			background-color: $box-background-color;
-			width: 15%;
+			padding: 1em;
+			width: 400px;
+			overflow-y: auto;
 		}
 
 		.content-col {
