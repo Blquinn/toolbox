@@ -1,13 +1,6 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import ExpandableMenu from "./components/ExpandableMenu.svelte";
 	import BaseNEncoder from "./components/BaseNEncoder.svelte";
-	import FaFontWoff from '@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2';
-	export let name: string;
-
-	onMount(() => {
-		console.log('mounted');
-	});
 </script>
 
 <main>

@@ -1,5 +1,4 @@
 <script lang="ts">
-    export let buttonText: string;
     // options are an array of [id, text];
     export let options: [any, string][];
     export let activeOption: any | null = null;
@@ -26,7 +25,7 @@
             <div class="dropdown-content">
                 {#each options as option}
                     <a href="/#" class="dropdown-item" class:is-active={option[0] === activeOption}
-                       on:click={onOptionSelected(option[0])}
+                       on:click={(_) => onOptionSelected(option[0])}
                     >
                         {option[1]}
                     </a>

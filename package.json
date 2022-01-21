@@ -14,7 +14,6 @@
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@rollup/plugin-typescript": "^8.0.0",
-    "@rollup/plugin-url": "^6.1.0",
     "@tauri-apps/cli": "^1.0.0-beta.10",
     "@tsconfig/svelte": "^3.0.0",
     "@types/utf8": "^3.0.1",

@@ -7,6 +7,7 @@
         [64, '64'],
         [16, '16 (Hexidecimal)'],
     ]
+    let activeBase = bases[0][0];
 
     type ModeType = 'encode' | 'decode';
     let mode: ModeType = 'encode';
@@ -14,20 +15,26 @@
     let inputText = '';
     let outputText = '';
 
-    let activeBase = bases[0][0];
-
     $: {
         switch (activeBase) {
         case 16:
             try {
-                outputText = hexEncode(utf8.encode(inputText));
+                if (mode == 'encode') {
+                    outputText = hexEncode(utf8.encode(inputText));
+                } else {
+                    outputText = hexDecode(inputText);
+                }
             } catch (e) {
                 outputText = `Error: ${e}`;
             }
             break;
         case 64:
             try {
-                outputText = btoa(utf8.encode(inputText));
+                if (mode == 'encode') {
+                    outputText = btoa(utf8.encode(inputText));
+                } else {
+                    outputText = atob(inputText);
+                }
             } catch (e) {
                 outputText = `Error: ${e}`;
             }
@@ -68,6 +75,10 @@
     }
 
     function setMode(newMode: ModeType) {
+        const inp = inputText;
+        const out = outputText;
+        outputText = inp;
+        inputText = out;
         mode = newMode;
     }
 </script>
@@ -96,9 +107,8 @@
         <div class="box config-box">
             <p>Base</p>
             <SelectDropdown
-                    buttonText="Base"
                     options={bases}
-                    activeOption={activeBase} />
+                    bind:activeOption={activeBase} />
         </div>
 
         <div class="block">
