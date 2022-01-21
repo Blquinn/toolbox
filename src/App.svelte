@@ -1,14 +1,12 @@
 <script lang="ts">
 	import ExpandableMenu from "./components/ExpandableMenu.svelte";
-	import BaseNEncoder from "./components/tools/BaseNEncoder.svelte";
+	import TextEncoder from "./components/tools/TextEncoder.svelte";
 	import JwtDecoder from "./components/tools/JWTDecoder.svelte";
 
 	type Tool =
 		'conv/json-yaml' |
 		'conv/number-base' |
-		'enc/html' |
-		'enc/url' |
-		'enc/base-n' |
+		'enc/text' |
 		'enc/jwt-decoder';
 
 	interface ToolMenuSection {
@@ -27,9 +25,7 @@
 		{
 			sectionHeader: 'Encoders / Decoders',
 			tools: [
-				['enc/html', 'HTML'],
-				['enc/url', 'URL'],
-				['enc/base-n', 'Base N'],
+				['enc/text', 'Text Encoder'],
 				['enc/jwt-decoder', 'JWT Decoder'],
 			],
 		}
@@ -54,8 +50,8 @@
 	</div>
 
 	<div class="content-col">
-		<div class="tool-wrapper" class:nodisplay={activeSection !== 'enc/base-n'}>
-			<BaseNEncoder />
+		<div class="tool-wrapper" class:nodisplay={activeSection !== 'enc/text'}>
+			<TextEncoder />
 		</div>
 		<div class="tool-wrapper" class:nodisplay={activeSection !== 'enc/jwt-decoder'}>
 			<JwtDecoder />

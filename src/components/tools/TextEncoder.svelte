@@ -1,45 +1,27 @@
 <script lang="ts">
-  import utf8 from "utf8";
   import SelectDropdown from "../SelectDropdown.svelte";
   import Tool from "../Tool.svelte";
+  import {type Encodings, EncoderMap, type ModeType} from '../../text-encodings';
 
-  type Base = 16 | 64;
-  let bases: [Base, string][] = [
-    [64, "64"],
-    [16, "16 (Hexidecimal)"],
+  const encodings: [Encodings, string][] = [
+    ['html', "HTML"],
+    ['url', "URL"],    
+    ['base-64', "Base 64"],
+    ['base-16', "Base 16 (Hexidecimal)"],
   ];
-  let activeBase = bases[0][0];
 
-  type ModeType = "encode" | "decode";
+  let activeEncoding = encodings[0][0];
+
   let mode: ModeType = "encode";
 
   let inputText = "";
   let outputText = "";
 
   $: {
-    switch (activeBase) {
-      case 16:
-        try {
-          if (mode == "encode") {
-            outputText = hexEncode(utf8.encode(inputText));
-          } else {
-            outputText = hexDecode(inputText);
-          }
-        } catch (e) {
-          outputText = `Error: ${e}`;
-        }
-        break;
-      case 64:
-        try {
-          if (mode == "encode") {
-            outputText = btoa(utf8.encode(inputText));
-          } else {
-            outputText = atob(inputText);
-          }
-        } catch (e) {
-          outputText = `Error: ${e}`;
-        }
-        break;
+    try {
+      outputText = EncoderMap[activeEncoding][mode](inputText);
+    } catch (e) {
+      outputText = `Error: ${e}`;
     }
   }
 
@@ -49,8 +31,8 @@
   // Set labels
   $: {
     const utfAscii = "(UTF-8/Ascii Text)";
-    const baseText = bases.find((b) => b[0] === activeBase)[1];
-    const baseLabel = `Base ${baseText}`;
+    const baseText = encodings.find((b) => b[0] === activeEncoding)[1];
+    const baseLabel = `(${baseText})`;
     if (mode === "encode") {
       inputTextSuffix = utfAscii;
       outputTextSuffix = baseLabel;
@@ -58,23 +40,6 @@
       inputTextSuffix = baseLabel;
       outputTextSuffix = utfAscii;
     }
-  }
-
-  // TODO: Move encoding functions to separate .ts file.
-
-  function hexEncode(text: string): string {
-    return text
-      .split("")
-      .map((c) => c.charCodeAt(0).toString(16).padStart(2, "0"))
-      .join("");
-  }
-
-  function hexDecode(hex: string): string {
-    return hex
-      .split(/(\w\w)/g)
-      .filter((p) => !!p)
-      .map((c) => String.fromCharCode(parseInt(c, 16)))
-      .join("");
   }
 
   function setMode(newMode: ModeType) {
@@ -86,7 +51,7 @@
   }
 </script>
 
-<Tool title="Base N Encoder / Decoder">
+<Tool title="Text Encoder / Decoder">
   <p class="subtitle">Configuration</p>
 
   <div id="conversion-tabs" class="tabs is-toggle is-toggle-rounded">
@@ -105,8 +70,8 @@
   </div>
 
   <div class="box config-box">
-    <p>Base</p>
-    <SelectDropdown options={bases} bind:activeOption={activeBase} />
+    <p>Encoding</p>
+    <SelectDropdown options={encodings} bind:activeOption={activeEncoding} />
   </div>
 
   <div class="block">
