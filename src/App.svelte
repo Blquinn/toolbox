@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ExpandableMenu from "./components/ExpandableMenu.svelte";
 	import BaseNEncoder from "./components/tools/BaseNEncoder.svelte";
+	import JwtDecoder from "./components/tools/JWTDecoder.svelte";
 
 	type Tool =
 		'conv/json-yaml' |
@@ -34,7 +35,7 @@
 		}
 	];
 
-	let activeSection: Tool | null = toolsList[0].tools[0][0]
+	let activeSection: Tool | null = 'enc/jwt-decoder';
 </script>
 
 <main id="app-main">
@@ -53,11 +54,11 @@
 	</div>
 
 	<div class="content-col">
-		<div class="tool-wrapper" class:nodisplay={activeSection !== 'conv/json-yaml'}>
+		<div class="tool-wrapper" class:nodisplay={activeSection !== 'enc/base-n'}>
 			<BaseNEncoder />
 		</div>
-		<div class="tool-wrapper" class:nodisplay={activeSection !== 'conv/number-base'}>
-			<BaseNEncoder />
+		<div class="tool-wrapper" class:nodisplay={activeSection !== 'enc/jwt-decoder'}>
+			<JwtDecoder />
 		</div>
 	</div>
 </main>

@@ -127,8 +127,6 @@
 </Tool>
 
 <style lang="scss">
-//   @import "src/style/style";
-
   .block {
     flex: 1;
     display: flex;
@@ -136,6 +134,7 @@
 
     textarea {
       flex: 1;
+      font-family: monospace;
     }
   }
 
