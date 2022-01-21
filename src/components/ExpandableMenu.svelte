@@ -1,8 +1,18 @@
 <script lang="ts">
+    import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher<{sectionClicked: any}>();
+
     export let sectionTitle: string;
-    export let sections: string[];
-    export let activeSection: string | null = null;
+    // array of [id, text]
+    export let sections: [any, string][];
+    // active section id
+    export let activeSection: any | null = null;
     export let expanded = false;
+
+    function onActiveSectionClicked(section) {
+        dispatch('sectionClicked', section);
+    }
 </script>
 
 <ul class="menu-list">
@@ -11,11 +21,11 @@
             <span>{sectionTitle}</span>
             {#if expanded}
                 <span class="icon is-small">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    <i class="fas fa-angle-up" aria-hidden="true"></i>
                 </span>
             {:else}
                 <span class="icon is-small">
-                    <i class="fas fa-angle-up" aria-hidden="true"></i>
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
                 </span>
             {/if}
         </a>
@@ -23,10 +33,10 @@
             <ul>
                 {#each sections as section}
                     <li>
-                        <a class:is-active={section === activeSection}
-                           on:click={() => activeSection = section}
+                        <a class:is-active={section[0] === activeSection}
+                           on:click={() => onActiveSectionClicked(section[0])}
                            href="/#"
-                        >{section}</a>
+                        >{section[1]}</a>
                     </li>
                 {/each}
             </ul>
@@ -35,8 +45,6 @@
 </ul>
 
 <style lang="scss">
-  @import "src/style/style";
-
   #section-title {
     display: flex;
     flex-direction: row;

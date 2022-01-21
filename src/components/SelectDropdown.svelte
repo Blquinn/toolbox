@@ -36,5 +36,4 @@
 </div>
 
 <style lang="scss">
-  @import "src/style/style";
 </style>
