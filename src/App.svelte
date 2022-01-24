@@ -23,8 +23,8 @@ import TimestampConverter from "./components/tools/TimestampConverter.svelte";
 		{
 			sectionHeader: 'Converters',
 			tools: [
-				['conv/json-yaml', 'Json <> Yaml'],
-				['conv/number-base', 'Number Base'],
+				// ['conv/json-yaml', 'Json <> Yaml'],
+				// ['conv/number-base', 'Number Base'],
 				['conv/timestamp', 'Timestamp'],
 			],
 		},
