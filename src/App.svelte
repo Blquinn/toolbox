@@ -3,10 +3,12 @@
 	import TextEncoder from "./components/tools/TextEncoder.svelte";
 	import JwtDecoder from "./components/tools/JWTDecoder.svelte";
 	import JsonFormatter from "./components/tools/JSONFormatter.svelte";
+import TimestampConverter from "./components/tools/TimestampConverter.svelte";
 
 	type Tool =
 		'conv/json-yaml' |
 		'conv/number-base' |
+		'conv/timestamp' |
 		'enc/text' |
 		'enc/jwt-decoder' |
 		'fmt/json'
@@ -23,6 +25,7 @@
 			tools: [
 				['conv/json-yaml', 'Json <> Yaml'],
 				['conv/number-base', 'Number Base'],
+				['conv/timestamp', 'Timestamp'],
 			],
 		},
 		{
@@ -40,7 +43,7 @@
 		}
 	];
 
-	let activeSection: Tool | null = 'fmt/json';
+	let activeSection: Tool | null = 'conv/timestamp';
 </script>
 
 <main id="app-main">
@@ -59,6 +62,9 @@
 	</div>
 
 	<div class="content-col">
+		<div class="tool-wrapper" class:nodisplay={activeSection !== 'conv/timestamp'}>
+			<TimestampConverter />
+		</div>
 		<div class="tool-wrapper" class:nodisplay={activeSection !== 'enc/text'}>
 			<TextEncoder />
 		</div>

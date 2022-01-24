@@ -59,6 +59,10 @@
 <Tool title="Text Encoder / Decoder">
   <p class="subtitle">Configuration</p>
 
+  <ConfigBox title="Encoding">
+    <SelectDropdown options={encodings} bind:activeOption={activeEncoding} />
+  </ConfigBox>
+
   <div id="conversion-tabs" class="tabs is-toggle is-toggle-rounded">
     <ul>
       <li class:is-active={mode === "encode"}>
@@ -73,10 +77,6 @@
       </li>
     </ul>
   </div>
-
-  <ConfigBox title="Encoding">
-    <SelectDropdown options={encodings} bind:activeOption={activeEncoding} />
-  </ConfigBox>
 
   <div class="block">
     <div>

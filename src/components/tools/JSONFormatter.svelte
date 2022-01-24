@@ -81,7 +81,7 @@
         <span>Paste</span>
       </button>
 
-      <button class="button" on:click={indentCode}>
+      <button class="button is-primary" on:click={indentCode}>
         <span class="icon is-small">
           <i class="fas fa-indent" aria-hidden="true" />
         </span>
@@ -105,6 +105,7 @@
         lang="json"
         theme="tomorrow_night"
         options={{
+          // TODO: Get the fontsize for p somehow
           fontSize: '11pt',
         }}
         bind:value={code}

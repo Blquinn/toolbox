@@ -14,6 +14,7 @@
     <div class="dropdown is-right" class:is-active={active} on:blur={() => active = false}>
         <div class="dropdown-trigger">
             <button class="button" aria-haspopup="true" aria-controls="dropdown-menu"
+                    on:blur={() => active = false}
                     on:click={() => active = !active}>
                 <span>{options.find(o => o[0] === activeOption)[1]}</span>
                 <span class="icon is-small">
@@ -25,7 +26,7 @@
             <div class="dropdown-content">
                 {#each options as option}
                     <a href="/#" class="dropdown-item" class:is-active={option[0] === activeOption}
-                       on:click={(_) => onOptionSelected(option[0])}
+                       on:mousedown={(_) => onOptionSelected(option[0])}
                     >
                         {option[1]}
                     </a>
