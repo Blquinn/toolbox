@@ -42,9 +42,6 @@ export default {
     svelte({
       preprocess: sveltePreprocess({
         sourceMap: !production,
-        // scss: {
-        //   prependData: `@import 'src/style/style.scss';`,
-        // },
       }),
       compilerOptions: {
         // enable run-time checks when not in production

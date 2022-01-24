@@ -2,12 +2,15 @@
 	import ExpandableMenu from "./components/ExpandableMenu.svelte";
 	import TextEncoder from "./components/tools/TextEncoder.svelte";
 	import JwtDecoder from "./components/tools/JWTDecoder.svelte";
+	import JsonFormatter from "./components/tools/JSONFormatter.svelte";
 
 	type Tool =
 		'conv/json-yaml' |
 		'conv/number-base' |
 		'enc/text' |
-		'enc/jwt-decoder';
+		'enc/jwt-decoder' |
+		'fmt/json'
+		;
 
 	interface ToolMenuSection {
 		sectionHeader: string,
@@ -28,10 +31,16 @@
 				['enc/text', 'Text Encoder'],
 				['enc/jwt-decoder', 'JWT Decoder'],
 			],
+		},
+		{
+			sectionHeader: 'Formatters',
+			tools: [
+				['fmt/json', 'Json'],
+			],
 		}
 	];
 
-	let activeSection: Tool | null = 'enc/jwt-decoder';
+	let activeSection: Tool | null = 'fmt/json';
 </script>
 
 <main id="app-main">
@@ -56,6 +65,9 @@
 		<div class="tool-wrapper" class:nodisplay={activeSection !== 'enc/jwt-decoder'}>
 			<JwtDecoder />
 		</div>
+		<div class="tool-wrapper" class:nodisplay={activeSection !== 'fmt/json'}>
+			<JsonFormatter />
+		</div>
 	</div>
 </main>
 
@@ -70,7 +82,7 @@
 		flex-direction: row;
 
 		.menu-col {
-			background-color: $box-background-color;
+			// background-color: $box-background-color;
 			padding: 1em;
 			width: 400px;
 			overflow-y: auto;

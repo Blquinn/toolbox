@@ -1,13 +1,18 @@
 <script lang="ts">
   import SelectDropdown from "../SelectDropdown.svelte";
   import Tool from "../Tool.svelte";
-  import {type Encodings, EncoderMap, type ModeType} from '../../text-encodings';
+  import {
+    type Encodings,
+    EncoderMap,
+    type ModeType,
+  } from "../../text-encodings";
+  import ConfigBox from "../ConfigBox.svelte";
 
   const encodings: [Encodings, string][] = [
-    ['html', "HTML"],
-    ['url', "URL"],    
-    ['base-64', "Base 64"],
-    ['base-16', "Base 16 (Hexidecimal)"],
+    ["html", "HTML"],
+    ["url", "URL"],
+    ["base-64", "Base 64"],
+    ["base-16", "Base 16 (Hexidecimal)"],
   ];
 
   let activeEncoding = encodings[0][0];
@@ -69,10 +74,9 @@
     </ul>
   </div>
 
-  <div class="box config-box">
-    <p>Encoding</p>
+  <ConfigBox title="Encoding">
     <SelectDropdown options={encodings} bind:activeOption={activeEncoding} />
-  </div>
+  </ConfigBox>
 
   <div class="block">
     <div>
@@ -106,13 +110,6 @@
   #conversion-tabs {
     display: flex;
     flex-direction: column;
-    align-items: center;
-  }
-
-  .config-box {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     align-items: center;
   }
 </style>

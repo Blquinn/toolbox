@@ -17,3 +17,12 @@ html, body {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
+
+.selectable {
+  -webkit-touch-callout: auto; /* iOS Safari */
+  -webkit-user-select: auto; /* Safari */
+  -khtml-user-select: auto; /* Konqueror HTML */
+  -moz-user-select: auto; /* Old versions of Firefox */
+  -ms-user-select: auto; /* Internet Explorer/Edge */
+  user-select: auto; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}

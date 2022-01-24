@@ -6,9 +6,7 @@ import '@fortawesome/fontawesome-free/js/regular';
 
 const app = new App({
 	target: document.body,
-	props: {
-		name: 'world'
-	}
+	props: {}
 });
 
 export default app;
