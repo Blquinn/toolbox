@@ -31,7 +31,9 @@
   let outputs = emptyOutputs;
 
   $: convert(inputText, activeInputFormat);
-  function convert(input, fmt) {
+  function convert(input: string, fmt: TimeFormat) {
+    input = input.trim();
+
     if (!input) {
       outputs = emptyOutputs;
       localTime = emptyTime;
@@ -54,7 +56,6 @@
     utcTime = d.toUTCString();
   }
 
-  // $:
   $: setInputPlaceholder(activeInputFormat);
   function setInputPlaceholder(fmt) {
     const format: Ops = formats[fmt];
@@ -85,19 +86,19 @@
   <div class="block">
     <p class="subtitle">Output</p>
     <div class="outputs">
-      <div class="block">
-        <p>Local Time</p>
+      <div class="box">
+        <p class="is-size-5 has-text-weight-bold">Local Time</p>
         <p class="selectable">{localTime}</p>
       </div>
 
-      <div class="block">
-        <p>UTC Time</p>
+      <div class="box">
+        <p class="is-size-5 has-text-weight-bold">UTC Time</p>
         <p class="selectable">{utcTime}</p>
       </div>
 
       {#each outputs as output}
-        <div class="block">
-          <p>{output[1].name}</p>
+        <div class="box">
+          <p class="is-size-5 has-text-weight-bold">{output[1].name}</p>
           <p class="selectable">{output[1].value}</p>
         </div>
       {/each}
@@ -118,8 +119,9 @@
     flex-wrap: wrap;
 
     > * {
-      width: 50%;
-      padding-right: 1em;
+      width: 48%;
+      margin-left: 1%;
+      margin-right: 1%;
     }
   }
 </style>
