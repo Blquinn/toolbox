@@ -1,13 +1,17 @@
+<script context="module" lang="ts">
+  import "codemirror/mode/javascript/javascript";
+  // import "codemirror/addon/fold/foldcode.js";
+  // import "codemirror/addon/fold/foldgutter.js";
+  // import "codemirror/addon/fold/brace-fold.js";
+  // import "codemirror/addon/fold/indent-fold.js";
+</script>
+
 <script lang="ts">
   import ConfigBox from "../ConfigBox.svelte";
   import SelectDropdown from "../SelectDropdown.svelte";
   import Tool from "../Tool.svelte";
-
   import { readText, writeText } from "@tauri-apps/api/clipboard";
-
-  import { AceEditor } from "svelte-ace";
-  import "brace/mode/json";
-  import "brace/theme/tomorrow_night";
+  import CodeMirror from "../CodeMirror.svelte";
 
   type IndentationsType = "2-spaces" | "4-spaces" | "tab" | "min";
 
@@ -20,18 +24,21 @@
 
   let activeIndent: IndentationsType = "2-spaces";
 
-  let code = "";
+  // let code = "";
 
-  let editorHeight: number;
+  let editor: CodeMirror.Editor;
+
+  // let editorHeight: number;
 
   function indentCode() {
     let obj;
     try {
-      obj = JSON.parse(code);
+      obj = JSON.parse(editor.getValue());
     } catch (e) {
-      code = `Error: ${e}`;
+      editor.setValue(`Error: ${e}`)
     }
 
+    let code;
     switch (activeIndent) {
       case "2-spaces":
         code = JSON.stringify(obj, null, 2);
@@ -46,21 +53,18 @@
         code = JSON.stringify(obj);
         break;
     }
+
+    editor.setValue(code);
   }
 
   async function copy() {
-    await writeText(code);
+    await writeText(editor.getValue());
   }
 
   async function paste() {
-    code = await readText();
+    const code = await readText();
+    editor.setValue(code);
   }
-
-  const options = {
-    mode: "javascript",
-    lineNumbers: true,
-    value: code,
-  };
 </script>
 
 <Tool title="Json Formatter">
@@ -97,31 +101,29 @@
     </div>
   </div>
 
-  <div id="editor-wrap" class="is-block" bind:clientHeight={editorHeight}>
-    <div class="wrap-inner">
-      <AceEditor
-        width="100%"
-        height={`${editorHeight}px`}
-        lang="json"
-        theme="tomorrow_night"
-        options={{
-          // TODO: Get the fontsize for p somehow
-          fontSize: '11pt',
-        }}
-        bind:value={code}
-      />
-    </div>
+  <div id="editor-wrap">
+    <CodeMirror
+      bind:editor={editor}
+      options={{
+        value: "",
+        mode: {
+          name: "javascript",
+          json: true,
+        },
+        lineNumbers: true,
+        foldGutter: true,
+        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+        lineWrapping: true,
+      }}
+    />
   </div>
 </Tool>
 
 <style lang="scss">
-  textarea {
-    flex: 1;
-    font-family: "Source Code Pro", monospace;
-  }
-
   #editor-wrap {
     flex: 1;
+    display: flex;
+    flex-direction: column;
 
     .wrap-inner {
       position: absolute;

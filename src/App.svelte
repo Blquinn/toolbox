@@ -3,7 +3,9 @@
 	import TextEncoder from "./components/tools/TextEncoder.svelte";
 	import JwtDecoder from "./components/tools/JWTDecoder.svelte";
 	import JsonFormatter from "./components/tools/JSONFormatter.svelte";
-import TimestampConverter from "./components/tools/TimestampConverter.svelte";
+	import TimestampConverter from "./components/tools/TimestampConverter.svelte";
+	import TextDiff from "./components/tools/TextDiff.svelte";
+	// import MarkdownEditor from "./components/tools/MarkdownEditor.svelte";
 
 	type Tool =
 		'conv/json-yaml' |
@@ -11,20 +13,19 @@ import TimestampConverter from "./components/tools/TimestampConverter.svelte";
 		'conv/timestamp' |
 		'enc/text' |
 		'enc/jwt-decoder' |
-		'fmt/json'
-		;
+		'fmt/json' |
+		'text/diff'
+	;
 
 	interface ToolMenuSection {
 		sectionHeader: string,
 		tools: [Tool, string][],
-	};
+	}
 
 	let toolsList: ToolMenuSection[] = [
 		{
 			sectionHeader: 'Converters',
 			tools: [
-				// ['conv/json-yaml', 'Json <> Yaml'],
-				// ['conv/number-base', 'Number Base'],
 				['conv/timestamp', 'Timestamp'],
 			],
 		},
@@ -40,10 +41,16 @@ import TimestampConverter from "./components/tools/TimestampConverter.svelte";
 			tools: [
 				['fmt/json', 'Json'],
 			],
+		},
+		{
+			sectionHeader: 'Text',
+			tools: [
+				['text/diff', 'Diff Viewer'],
+			],
 		}
 	];
 
-	let activeSection: Tool | null = 'conv/timestamp';
+	let activeSection: Tool | null = 'fmt/json';
 </script>
 
 <main id="app-main">
@@ -62,7 +69,7 @@ import TimestampConverter from "./components/tools/TimestampConverter.svelte";
 	</div>
 
 	<div class="content-col">
-		<div class="tool-wrapper" class:nodisplay={activeSection !== 'conv/timestamp'}>
+		<!-- <div class="tool-wrapper" class:nodisplay={activeSection !== 'conv/timestamp'}>
 			<TimestampConverter />
 		</div>
 		<div class="tool-wrapper" class:nodisplay={activeSection !== 'enc/text'}>
@@ -74,6 +81,25 @@ import TimestampConverter from "./components/tools/TimestampConverter.svelte";
 		<div class="tool-wrapper" class:nodisplay={activeSection !== 'fmt/json'}>
 			<JsonFormatter />
 		</div>
+		<div class="tool-wrapper" class:nodisplay={activeSection !== 'text/diff'}>
+			<TextDiff />
+		</div> -->
+		<div class="tool-wrapper">
+		{#if activeSection == "conv/timestamp"}
+			<TimestampConverter />
+		{:else if activeSection == 'enc/text'}
+			<TextEncoder />
+		{:else if activeSection == 'enc/jwt-decoder'}
+			<JwtDecoder />
+		{:else if activeSection == 'fmt/json'}
+			<JsonFormatter />
+		{:else if activeSection == 'text/diff'}
+			<TextDiff />
+		{/if}
+		</div>
+		<!-- <div class="tool-wrapper" class:nodisplay={activeSection !== 'text/md-editor'}>
+			<MarkdownEditor />
+		</div> -->
 	</div>
 </main>
 
