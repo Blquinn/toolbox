@@ -40,6 +40,7 @@
 </Tool>
 
 <style lang="scss">
+  @import 'src/style/style';
 
   #diff-wrap {
     flex: 1;
@@ -92,6 +93,16 @@
       #diff-view {
         position: relative;
         height: 100%;
+
+        :global(.CodeMirror-merge) {
+          box-shadow: none;
+          border-radius: 0;
+        }
+
+        :global(.CodeMirror) {
+          box-shadow: none;
+          border-radius: 0;
+        }
       }
     }
   }

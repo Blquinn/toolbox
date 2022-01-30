@@ -114,7 +114,7 @@
 		flex-direction: row;
 
 		.menu-col {
-			// background-color: $box-background-color;
+			background-color: $grey-dark;
 			padding: 1em;
 			width: 400px;
 			overflow-y: auto;

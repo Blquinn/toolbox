@@ -1,9 +1,5 @@
 <script context="module" lang="ts">
   import "codemirror/mode/javascript/javascript";
-  // import "codemirror/addon/fold/foldcode.js";
-  // import "codemirror/addon/fold/foldgutter.js";
-  // import "codemirror/addon/fold/brace-fold.js";
-  // import "codemirror/addon/fold/indent-fold.js";
 </script>
 
 <script lang="ts">
@@ -24,11 +20,7 @@
 
   let activeIndent: IndentationsType = "2-spaces";
 
-  // let code = "";
-
   let editor: CodeMirror.Editor;
-
-  // let editorHeight: number;
 
   function indentCode() {
     let obj;
