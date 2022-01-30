@@ -3,6 +3,9 @@
 @import '../../node_modules/bulmaswatch/darkly/_overrides';
 @import '@fortawesome/fontawesome-free/scss/solid';
 
+///////////////////////////////////////////
+// Top level css
+
 html, body {
   height: 100%;
   width: 100%;
@@ -28,6 +31,13 @@ html, body {
   user-select: text; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
 
+////////////////////////////////////////////////////////////
+// Bulma overrides
+
+textarea.textarea {
+  background-color: $grey-darker;
+  color: $white-ter;
+}
 
 ////////////////////////////////////////////////////////////
 // CodeMirror

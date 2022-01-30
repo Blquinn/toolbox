@@ -9,10 +9,10 @@
   import ConfigBox from "../ConfigBox.svelte";
 
   const encodings: [Encodings, string][] = [
-    ["html", "HTML"],
-    ["url", "URL"],
     ["base-64", "Base 64"],
     ["base-16", "Base 16 (Hexidecimal)"],
+    ["url", "URL"],
+    ["html", "HTML"],
   ];
 
   let activeEncoding = encodings[0][0];
