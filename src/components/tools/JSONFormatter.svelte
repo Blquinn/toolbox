@@ -8,8 +8,9 @@
   import Tool from "../Tool.svelte";
   import { readText, writeText } from "@tauri-apps/api/clipboard";
   import CodeMirror from "../CodeMirror.svelte";
-
-  type IndentationsType = "2-spaces" | "4-spaces" | "tab" | "min";
+  import type { IndentationsType } from "../../state/types";
+  import { rootState } from "../../state/store";
+  import debounce from "../../util/debounce";
 
   const indentations: [IndentationsType, string][] = [
     ["2-spaces", "2 Spaces"],
@@ -18,7 +19,7 @@
     ["min", "Compact"],
   ];
 
-  let activeIndent: IndentationsType = "2-spaces";
+  const state = $rootState.jsonFormatter
 
   let editor: CodeMirror.Editor;
 
@@ -27,26 +28,25 @@
     try {
       obj = JSON.parse(editor.getValue());
     } catch (e) {
-      editor.setValue(`Error: ${e}`)
+      $state.value = `Error: ${e}`;
     }
 
-    let code;
-    switch (activeIndent) {
+    switch ($state.activeIndent) {
       case "2-spaces":
-        code = JSON.stringify(obj, null, 2);
+        $state.value = JSON.stringify(obj, null, 2);
         break;
       case "4-spaces":
-        code = JSON.stringify(obj, null, 4);
+        $state.value = JSON.stringify(obj, null, 4);
         break;
       case "tab":
-        code = JSON.stringify(obj, null, "\t");
+        $state.value = JSON.stringify(obj, null, "\t");
         break;
       case "min":
-        code = JSON.stringify(obj);
+        $state.value = JSON.stringify(obj);
         break;
     }
 
-    editor.setValue(code);
+    editor.setValue($state.value);
   }
 
   async function copy() {
@@ -54,9 +54,15 @@
   }
 
   async function paste() {
-    const code = await readText();
-    editor.setValue(code);
+    editor.setValue(await readText());
   }
+
+  function storeEditorContents() {
+    if (editor)
+      $state.value = editor.getValue();
+  }
+
+  let storeDebounced = debounce(storeEditorContents, 50);
 </script>
 
 <Tool title="Json Formatter">
@@ -64,7 +70,7 @@
     <p class="subtitle">Configuration</p>
 
     <ConfigBox title="Indentation">
-      <SelectDropdown options={indentations} bind:activeOption={activeIndent} />
+      <SelectDropdown options={indentations} bind:activeOption={$state.activeIndent} />
     </ConfigBox>
   </div>
 
@@ -96,8 +102,21 @@
   <div id="editor-wrap">
     <CodeMirror
       bind:editor={editor}
+      on:change={storeDebounced}
+      on:blur={storeEditorContents}
+      on:editorCreated={({detail: e}) => {
+        e.setCursor($state.cursorPos);
+        e.scrollTo($state.scroll.x, $state.scroll.y);
+      }}
+      on:cursorActivity={({detail: editor}) => {
+        $state.cursorPos = editor.getCursor();
+      }}
+      on:scroll={({detail}) => {
+        const s = detail.getScrollInfo();
+        $state.scroll = {x: s.left, y: s.top};
+      }}
       options={{
-        value: "",
+        value: $state.value,
         mode: {
           name: "javascript",
           json: true,

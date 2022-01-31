@@ -9,8 +9,6 @@
   let inputPlaceholder = "";
   let inputText = "";
 
-  // let date: Date = null;
-
   const formatList: [TimeFormat, Ops][] = [
     ["unix-sec", formats["unix-sec"]],
     ["unix-milli", formats["unix-milli"]],

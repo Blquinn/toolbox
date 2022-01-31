@@ -5,17 +5,19 @@
 	import JsonFormatter from "./components/tools/JSONFormatter.svelte";
 	import TimestampConverter from "./components/tools/TimestampConverter.svelte";
 	import TextDiff from "./components/tools/TextDiff.svelte";
+	import { rootState } from "./state/store";
+import type { Tool } from "./state/types";
 	// import MarkdownEditor from "./components/tools/MarkdownEditor.svelte";
 
-	type Tool =
-		'conv/json-yaml' |
-		'conv/number-base' |
-		'conv/timestamp' |
-		'enc/text' |
-		'enc/jwt-decoder' |
-		'fmt/json' |
-		'text/diff'
-	;
+	// type Tool =
+	// 	'conv/json-yaml' |
+	// 	'conv/number-base' |
+	// 	'conv/timestamp' |
+	// 	'enc/text' |
+	// 	'enc/jwt-decoder' |
+	// 	'fmt/json' |
+	// 	'text/diff'
+	// ;
 
 	interface ToolMenuSection {
 		sectionHeader: string,
@@ -50,7 +52,7 @@
 		}
 	];
 
-	let activeSection: Tool | null = 'fmt/json';
+	// let activeSection: Tool | null = 'fmt/json';
 </script>
 
 <main id="app-main">
@@ -61,45 +63,27 @@
 				<ExpandableMenu
 						sectionTitle={list.sectionHeader}
 						sections={list.tools}
-						on:sectionClicked={({detail: s}) => activeSection = s}
-						activeSection={activeSection}
+						on:sectionClicked={({detail: s}) => $rootState.activeTool = s}
+						activeSection={$rootState.activeTool}
 				/>
 			{/each}
 		</aside>
 	</div>
 
 	<div class="content-col">
-		<!-- <div class="tool-wrapper" class:nodisplay={activeSection !== 'conv/timestamp'}>
-			<TimestampConverter />
-		</div>
-		<div class="tool-wrapper" class:nodisplay={activeSection !== 'enc/text'}>
-			<TextEncoder />
-		</div>
-		<div class="tool-wrapper" class:nodisplay={activeSection !== 'enc/jwt-decoder'}>
-			<JwtDecoder />
-		</div>
-		<div class="tool-wrapper" class:nodisplay={activeSection !== 'fmt/json'}>
-			<JsonFormatter />
-		</div>
-		<div class="tool-wrapper" class:nodisplay={activeSection !== 'text/diff'}>
-			<TextDiff />
-		</div> -->
 		<div class="tool-wrapper">
-		{#if activeSection == "conv/timestamp"}
-			<TimestampConverter />
-		{:else if activeSection == 'enc/text'}
-			<TextEncoder />
-		{:else if activeSection == 'enc/jwt-decoder'}
-			<JwtDecoder />
-		{:else if activeSection == 'fmt/json'}
-			<JsonFormatter />
-		{:else if activeSection == 'text/diff'}
-			<TextDiff />
-		{/if}
+			{#if $rootState.activeTool == "conv/timestamp"}
+				<TimestampConverter />
+			{:else if $rootState.activeTool == 'enc/text'}
+				<TextEncoder />
+			{:else if $rootState.activeTool == 'enc/jwt-decoder'}
+				<JwtDecoder />
+			{:else if $rootState.activeTool == 'fmt/json'}
+				<JsonFormatter />
+			{:else if $rootState.activeTool == 'text/diff'}
+				<TextDiff />
+			{/if}
 		</div>
-		<!-- <div class="tool-wrapper" class:nodisplay={activeSection !== 'text/md-editor'}>
-			<MarkdownEditor />
-		</div> -->
 	</div>
 </main>
 
