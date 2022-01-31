@@ -10,7 +10,6 @@
   import CodeMirror from "../CodeMirror.svelte";
   import type { IndentationsType } from "../../state/types";
   import { rootState } from "../../state/store";
-  import debounce from "../../util/debounce";
 
   const indentations: [IndentationsType, string][] = [
     ["2-spaces", "2 Spaces"],
@@ -58,11 +57,13 @@
   }
 
   function storeEditorContents() {
-    if (editor)
-      $state.value = editor.getValue();
-  }
+    $state.value = editor.getValue();
 
-  let storeDebounced = debounce(storeEditorContents, 50);
+    const s = editor.getScrollInfo();
+    $state.scroll = {x: s.left, y: s.top};
+
+    $state.cursorPos = editor.getCursor();
+  }
 </script>
 
 <Tool title="Json Formatter">
@@ -102,18 +103,10 @@
   <div id="editor-wrap">
     <CodeMirror
       bind:editor={editor}
-      on:change={storeDebounced}
       on:blur={storeEditorContents}
       on:editorCreated={({detail: e}) => {
         e.setCursor($state.cursorPos);
         e.scrollTo($state.scroll.x, $state.scroll.y);
-      }}
-      on:cursorActivity={({detail: editor}) => {
-        $state.cursorPos = editor.getCursor();
-      }}
-      on:scroll={({detail}) => {
-        const s = detail.getScrollInfo();
-        $state.scroll = {x: s.left, y: s.top};
       }}
       options={{
         value: $state.value,
