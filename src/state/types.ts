@@ -1,4 +1,4 @@
-import type { Editor, Position } from 'codemirror';
+import type { Position } from 'codemirror';
 import type { Writable } from 'svelte/store';
 
 /////////////////////////////////////
@@ -22,6 +22,14 @@ export interface JSONFormatterState extends EditorState {
 }
 
 /////////////////////////////////////
+// TextDiff
+
+export interface TextDIffState {
+    left: EditorState,
+    right: EditorState,
+}
+
+/////////////////////////////////////
 // Root State
 
 export type Tool =
@@ -37,4 +45,5 @@ export type Tool =
 export interface RootState {
     activeTool: Tool,
     jsonFormatter: Writable<JSONFormatterState>,
+    textDiff: Writable<TextDIffState>,
 }
