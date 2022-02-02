@@ -24,9 +24,18 @@ export interface JSONFormatterState extends EditorState {
 /////////////////////////////////////
 // TextDiff
 
-export interface TextDIffState {
+export interface TextDiffState {
     left: EditorState,
     right: EditorState,
+}
+
+/////////////////////////////////////
+// JWTDecoder
+
+export interface JWTDecoderState {
+    token: string,
+    header: string,
+    payload: string,
 }
 
 /////////////////////////////////////
@@ -45,5 +54,6 @@ export type Tool =
 export interface RootState {
     activeTool: Tool,
     jsonFormatter: Writable<JSONFormatterState>,
-    textDiff: Writable<TextDIffState>,
+    textDiff: Writable<TextDiffState>,
+    jwtDecoder: Writable<JWTDecoderState>,
 }

@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
 
-import type { RootState, JSONFormatterState, TextDIffState } from './types';
+import type { RootState, JSONFormatterState, TextDiffState, JWTDecoderState } from './types';
 
 const jsonFormatterState: Writable<JSONFormatterState> = writable({
     activeIndent: '2-spaces',
@@ -10,7 +10,7 @@ const jsonFormatterState: Writable<JSONFormatterState> = writable({
     cursorPos: { line: 0, ch: 0 },
 });
 
-const textDiffState: Writable<TextDIffState> = writable({
+const textDiffState: Writable<TextDiffState> = writable({
     left: {
         value: '',
         scroll: { x: 0, y: 0 },
@@ -23,8 +23,15 @@ const textDiffState: Writable<TextDIffState> = writable({
     }
 });
 
+const jwtDecoderState: Writable<JWTDecoderState> = writable({
+    token: '',
+    header: '',
+    payload: '',
+})
+
 export const rootState: Writable<RootState> = writable({
     activeTool: 'text/diff',
     jsonFormatter: jsonFormatterState,
     textDiff: textDiffState,
+    jwtDecoder: jwtDecoderState,
 })

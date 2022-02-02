@@ -50,7 +50,6 @@
     });
 
     // TODO: Figure out scrolling for merge view.
-
     editorLeft.setValue($state.left.value);
     editorLeft.setCursor($state.left.cursorPos);
     // editorLeft.scrollTo($state.left.scroll.x, $state.left.scroll.y);
