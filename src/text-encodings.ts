@@ -1,8 +1,9 @@
-import utf8 from "utf8";
+import { Base64 } from 'js-base64';
 
 export type Encodings =
     'base-16' |
     'base-64' |
+    'base-64-url' |
     'html' |
     'url';
 
@@ -22,11 +23,19 @@ export function decodeHex(hex: string): string {
 }
 
 export function encodeBase64(byteString: string): string {
-    return btoa(utf8.encode(byteString));
+    return Base64.encode(byteString);
 }
 
 export function decodeBase64(text: string): string {
-    return atob(text)
+    return Base64.decode(text);
+}
+
+export function encodeBase64UrlSafe(byteString: string): string {
+    return Base64.encodeURI(byteString);
+}
+
+export function decodeBase64UrlSafe(text: string): string {
+    return Base64.decode(text);
 }
 
 function escapeHtml(html: string): string {
@@ -67,6 +76,10 @@ export const EncoderMap: IEncoderMap = {
     'base-64': {
         'encode': encodeBase64,
         'decode': decodeBase64,
+    },
+    'base-64-url': {
+        'encode': encodeBase64UrlSafe,
+        'decode': decodeBase64UrlSafe,
     },
     'html': {
         'encode': escapeHtml,

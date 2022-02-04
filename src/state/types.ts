@@ -1,5 +1,6 @@
 import type { Position } from 'codemirror';
 import type { Writable } from 'svelte/store';
+import type { Encodings, ModeType } from '../text-encodings';
 
 /////////////////////////////////////
 // JSONFormatter
@@ -39,6 +40,16 @@ export interface JWTDecoderState {
 }
 
 /////////////////////////////////////
+// TextEncoder
+
+export interface TextEncoderState {
+    encoding: Encodings,
+    mode: ModeType,
+    input: string,
+    output: string,
+}
+
+/////////////////////////////////////
 // Root State
 
 export type Tool =
@@ -56,4 +67,5 @@ export interface RootState {
     jsonFormatter: Writable<JSONFormatterState>,
     textDiff: Writable<TextDiffState>,
     jwtDecoder: Writable<JWTDecoderState>,
+    textEncoder: Writable<TextEncoderState>,
 }
