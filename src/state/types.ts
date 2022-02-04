@@ -1,6 +1,7 @@
 import type { Position } from 'codemirror';
 import type { Writable } from 'svelte/store';
 import type { Encodings, ModeType } from '../text-encodings';
+import type { TimeFormat } from '../time-conversion';
 
 /////////////////////////////////////
 // JSONFormatter
@@ -50,6 +51,14 @@ export interface TextEncoderState {
 }
 
 /////////////////////////////////////
+// TimestampConverter
+
+export interface TimestampConverterState {
+    inputFormat: TimeFormat,
+    inputText: string,
+}
+
+/////////////////////////////////////
 // Root State
 
 export type Tool =
@@ -68,4 +77,5 @@ export interface RootState {
     textDiff: Writable<TextDiffState>,
     jwtDecoder: Writable<JWTDecoderState>,
     textEncoder: Writable<TextEncoderState>,
+    timestampConverter: Writable<TimestampConverterState>,
 }

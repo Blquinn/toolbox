@@ -3,11 +3,11 @@
   import Tool from "../Tool.svelte";
   import SelectDropdown from "../SelectDropdown.svelte";
   import { formats, type Ops, type TimeFormat } from "../../time-conversion";
+  import { rootState } from "../../state/store";
 
-  let activeInputFormat: TimeFormat = "unix-sec";
+  const state = $rootState.timestampConverter;
 
   let inputPlaceholder = "";
-  let inputText = "";
 
   const formatList: [TimeFormat, Ops][] = [
     ["unix-sec", formats["unix-sec"]],
@@ -28,7 +28,7 @@
     formatList.map((f) => [f[0], { name: f[1].name, value: emptyTime }]);
   let outputs = emptyOutputs;
 
-  $: convert(inputText, activeInputFormat);
+  $: convert($state.inputText, $state.inputFormat);
   function convert(input: string, fmt: TimeFormat) {
     input = input.trim();
 
@@ -54,7 +54,7 @@
     utcTime = d.toUTCString();
   }
 
-  $: setInputPlaceholder(activeInputFormat);
+  $: setInputPlaceholder($state.inputFormat);
   function setInputPlaceholder(fmt) {
     const format: Ops = formats[fmt];
     inputPlaceholder = `${format.name} - e.g. ${format.format(new Date())}`;
@@ -67,7 +67,7 @@
   <ConfigBox title="Input Format">
     <SelectDropdown
       options={formatOpts}
-      bind:activeOption={activeInputFormat}
+      bind:activeOption={$state.inputFormat}
     />
   </ConfigBox>
 
@@ -77,7 +77,7 @@
       type="text"
       class="input"
       placeholder={inputPlaceholder}
-      bind:value={inputText}
+      bind:value={$state.inputText}
     />
   </div>
 

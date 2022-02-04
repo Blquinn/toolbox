@@ -1,8 +1,14 @@
 import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
 
-import type { RootState, JSONFormatterState, TextDiffState, JWTDecoderState, TextEncoderState } from './types';
-import { EncoderMap } from '../text-encodings';
+import type {
+    RootState,
+    JSONFormatterState,
+    TextDiffState,
+    JWTDecoderState,
+    TextEncoderState,
+    TimestampConverterState,
+} from './types';
 
 const jsonFormatterState: Writable<JSONFormatterState> = writable({
     activeIndent: '2-spaces',
@@ -37,10 +43,16 @@ const textEncoderState: Writable<TextEncoderState> = writable({
     output: '',
 })
 
+const timestampConverterState: Writable<TimestampConverterState> = writable({
+    inputFormat: 'unix-sec',
+    inputText: '',
+})
+
 export const rootState: Writable<RootState> = writable({
     activeTool: 'text/diff',
     jsonFormatter: jsonFormatterState,
     textDiff: textDiffState,
     jwtDecoder: jwtDecoderState,
     textEncoder: textEncoderState,
+    timestampConverter: timestampConverterState,
 })
