@@ -8,6 +8,7 @@ import type {
     JWTDecoderState,
     TextEncoderState,
     TimestampConverterState,
+    JSONYamlConverterState,
 } from './types';
 
 const jsonFormatterState: Writable<JSONFormatterState> = writable({
@@ -48,9 +49,16 @@ const timestampConverterState: Writable<TimestampConverterState> = writable({
     inputText: '',
 })
 
+const jsonYamlConverterState: Writable<JSONYamlConverterState> = writable({
+    inputText: '',
+    indent: '2-spaces',
+    conversion: 'yaml-to-json',
+})
+
 export const rootState: Writable<RootState> = writable({
-    activeTool: 'text/diff',
+    activeTool: 'conv/json-yaml',
     jsonFormatter: jsonFormatterState,
+    jsonYamlConverter: jsonYamlConverterState,
     textDiff: textDiffState,
     jwtDecoder: jwtDecoderState,
     textEncoder: textEncoderState,

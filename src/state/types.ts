@@ -59,11 +59,22 @@ export interface TimestampConverterState {
 }
 
 /////////////////////////////////////
+// JSONYamlConverter
+
+export type JSONYamlConversions = 'json-to-yaml' | 'yaml-to-json';
+
+export interface JSONYamlConverterState {
+    conversion: JSONYamlConversions,
+    indent: IndentationsType,
+    inputText: string,
+}
+
+/////////////////////////////////////
 // Root State
 
 export type Tool =
     'conv/json-yaml' |
-    'conv/number-base' |
+    // 'conv/number-base' |
     'conv/timestamp' |
     'enc/text' |
     'enc/jwt-decoder' |
@@ -74,6 +85,7 @@ export type Tool =
 export interface RootState {
     activeTool: Tool,
     jsonFormatter: Writable<JSONFormatterState>,
+    jsonYamlConverter: Writable<JSONYamlConverterState>,
     textDiff: Writable<TextDiffState>,
     jwtDecoder: Writable<JWTDecoderState>,
     textEncoder: Writable<TextEncoderState>,

@@ -1,5 +1,5 @@
 export interface DebouncedFn {
-    (): any;
+    (...any): any;
     clear?: () => any;
     flush?: () => any;
 }
@@ -18,7 +18,7 @@ export interface DebouncedFn {
  * @param {Boolean} whether to execute at the beginning (`false`)
  * @api public
  */
-export default function debounce(func: () => any, wait: number, immediate: boolean = false): DebouncedFn {
+export default function debounce(func: (...any) => any, wait: number, immediate: boolean = false): DebouncedFn {
     let timeout: NodeJS.Timeout;
     let args: any;
     let context: any;

@@ -1,48 +1,21 @@
-<script context="module" lang="ts">
-  import "codemirror/mode/javascript/javascript";
-</script>
-
 <script lang="ts">
   import ConfigBox from "../ConfigBox.svelte";
   import SelectDropdown from "../SelectDropdown.svelte";
   import Tool from "../Tool.svelte";
   import { readText, writeText } from "@tauri-apps/api/clipboard";
   import CodeMirror from "../CodeMirror.svelte";
-  import type { IndentationsType } from "../../state/types";
   import { rootState } from "../../state/store";
-
-  const indentations: [IndentationsType, string][] = [
-    ["2-spaces", "2 Spaces"],
-    ["4-spaces", "4 Spaces"],
-    ["tab", "1 Tab"],
-    ["min", "Compact"],
-  ];
+  import { formatJson, indentations } from "../../util/json";
 
   const state = $rootState.jsonFormatter
 
   let editor: CodeMirror.Editor;
 
   function indentCode() {
-    let obj;
     try {
-      obj = JSON.parse(editor.getValue());
+      $state.value = formatJson(editor.getValue(), $state.activeIndent);
     } catch (e) {
       $state.value = `Error: ${e}`;
-    }
-
-    switch ($state.activeIndent) {
-      case "2-spaces":
-        $state.value = JSON.stringify(obj, null, 2);
-        break;
-      case "4-spaces":
-        $state.value = JSON.stringify(obj, null, 4);
-        break;
-      case "tab":
-        $state.value = JSON.stringify(obj, null, "\t");
-        break;
-      case "min":
-        $state.value = JSON.stringify(obj);
-        break;
     }
 
     editor.setValue($state.value);

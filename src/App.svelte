@@ -7,6 +7,7 @@
 	import TextDiff from "./components/tools/TextDiff.svelte";
 	import { rootState } from "./state/store";
 import type { Tool } from "./state/types";
+import JsonYamlConverter from "./components/tools/JSONYamlConverter.svelte";
 	// import MarkdownEditor from "./components/tools/MarkdownEditor.svelte";
 
 	// type Tool =
@@ -29,6 +30,7 @@ import type { Tool } from "./state/types";
 			sectionHeader: 'Converters',
 			tools: [
 				['conv/timestamp', 'Timestamp'],
+				['conv/json-yaml', 'JSON <> Yaml'],
 			],
 		},
 		{
@@ -74,6 +76,8 @@ import type { Tool } from "./state/types";
 		<div class="tool-wrapper">
 			{#if $rootState.activeTool == "conv/timestamp"}
 				<TimestampConverter />
+			{:else if $rootState.activeTool == 'conv/json-yaml'}
+				<JsonYamlConverter />
 			{:else if $rootState.activeTool == 'enc/text'}
 				<TextEncoder />
 			{:else if $rootState.activeTool == 'enc/jwt-decoder'}
@@ -108,6 +112,7 @@ import type { Tool } from "./state/types";
 			flex: 1;
 			display: flex;
 			flex-direction: column;
+			min-width: 0;
 		}
 	}
 

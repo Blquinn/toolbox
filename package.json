@@ -19,11 +19,14 @@
     "@tsconfig/svelte": "^3.0.0",
     "@types/codemirror": "^5.60.5",
     "@types/diff-match-patch": "^1.0.32",
+    "@types/js-yaml": "^4.0.5",
     "@types/utf8": "^3.0.1",
     "bulma": "^0.9.3",
     "bulmaswatch": "^0.8.1",
     "codemirror": "^5.65.1",
     "diff-match-patch": "^1.0.5",
+    "js-base64": "^3.7.2",
+    "js-yaml": "^4.1.0",
     "node-sass": "^7.0.1",
     "postcss": "^8.4.5",
     "rollup": "^2.3.4",
@@ -37,7 +40,6 @@
     "svelte-fa": "^2.4.0",
     "svelte-preprocess": "^4.0.0",
     "tslib": "^2.0.0",
-    "js-base64": "^3.7.2",
     "typescript": "^4.0.0"
   },
   "dependencies": {

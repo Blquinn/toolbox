@@ -8,7 +8,7 @@
     export let sections: [any, string][];
     // active section id
     export let activeSection: any | null = null;
-    export let expanded = false;
+    export let expanded = true;
 
     function onActiveSectionClicked(section) {
         dispatch('sectionClicked', section);
