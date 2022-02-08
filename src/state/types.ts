@@ -2,6 +2,7 @@ import type { Position } from 'codemirror';
 import type { Writable } from 'svelte/store';
 import type { Encodings, ModeType } from '../text-encodings';
 import type { TimeFormat } from '../time-conversion';
+import type { Match, RegexMatchState } from '../util/regex-match-mode';
 
 /////////////////////////////////////
 // JSONFormatter
@@ -70,6 +71,15 @@ export interface JSONYamlConverterState {
 }
 
 /////////////////////////////////////
+// RegexTester
+
+export interface RegexTesterState {
+  regexText: string,
+  editor: EditorState,
+  // text: string,
+}
+
+/////////////////////////////////////
 // Root State
 
 export type Tool =
@@ -79,7 +89,8 @@ export type Tool =
     'enc/text' |
     'enc/jwt-decoder' |
     'fmt/json' |
-    'text/diff'
+    'text/diff' |
+    'text/regex-tester'
 ;
 
 export interface RootState {
@@ -90,4 +101,5 @@ export interface RootState {
     jwtDecoder: Writable<JWTDecoderState>,
     textEncoder: Writable<TextEncoderState>,
     timestampConverter: Writable<TimestampConverterState>,
+    regexTester: Writable<RegexTesterState>,
 }

@@ -1,11 +1,16 @@
 <script context="module" lang="ts">
 import CodeMirror, { type Editor, type EditorChange } from 'codemirror'
+import { RegexMatchMode, type RegexMatchModeOpts } from '../util/regex-match-mode';
 import "codemirror/addon/fold/foldcode.js";
 import "codemirror/addon/fold/foldgutter.js";
 import "codemirror/addon/fold/brace-fold.js";
 import "codemirror/addon/fold/indent-fold.js";
 import 'codemirror/mode/yaml/yaml';
 import 'codemirror/mode/javascript/javascript';
+
+CodeMirror.defineMode('regex-match', (cfg, opts: RegexMatchModeOpts) => {
+    return new RegexMatchMode(opts.matches);
+});
 </script>
 
 <script lang="ts">

@@ -8,6 +8,7 @@
 	import { rootState } from "./state/store";
 import type { Tool } from "./state/types";
 import JsonYamlConverter from "./components/tools/JSONYamlConverter.svelte";
+import RegexTester from "./components/tools/RegexTester.svelte";
 	// import MarkdownEditor from "./components/tools/MarkdownEditor.svelte";
 
 	// type Tool =
@@ -50,11 +51,10 @@ import JsonYamlConverter from "./components/tools/JSONYamlConverter.svelte";
 			sectionHeader: 'Text',
 			tools: [
 				['text/diff', 'Diff Viewer'],
+				['text/regex-tester', 'Regex Tester'],
 			],
 		}
 	];
-
-	// let activeSection: Tool | null = 'fmt/json';
 </script>
 
 <main id="app-main">
@@ -86,6 +86,8 @@ import JsonYamlConverter from "./components/tools/JSONYamlConverter.svelte";
 				<JsonFormatter />
 			{:else if $rootState.activeTool == 'text/diff'}
 				<TextDiff />
+			{:else if $rootState.activeTool == 'text/regex-tester'}
+				<RegexTester />
 			{/if}
 		</div>
 	</div>
