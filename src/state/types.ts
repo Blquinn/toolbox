@@ -73,10 +73,20 @@ export interface JSONYamlConverterState {
 /////////////////////////////////////
 // RegexTester
 
+export type RegexFlag =
+    'g' |
+    'm' |
+    'i' |
+    'y' |
+    'u' |
+    's' |
+    'd'
+;
+
 export interface RegexTesterState {
   regexText: string,
   editor: EditorState,
-  // text: string,
+  activeFlags: RegexFlag[],
 }
 
 /////////////////////////////////////

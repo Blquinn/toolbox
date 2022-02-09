@@ -62,7 +62,8 @@ export const regexTester: Writable<RegexTesterState> = writable({
     value: 'foo\nbar \naslkdfjbaz',
     scroll: {x: 0, y: 0},
     cursorPos: {line: 0, ch: 0},
-  }
+  },
+  activeFlags: ['g', 'm'],
 })
 
 export const rootState: Writable<RootState> = writable({

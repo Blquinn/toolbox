@@ -24,23 +24,28 @@ export class RegexMatchMode implements Mode<RegexMatchState> {
   name?: string = 'regex-match';
 
   token(stream: StringStream, state: RegexMatchState) {
+    let currentMatchIdx = -1;
+    let inMatch = false;
+    for (const [i, m] of this.matches.entries()) {
+      const end = m.idx + m.text.length;
+
+      if (state.idx >= end) {
+        currentMatchIdx = i;
+        continue;
+      }
+
+      if (state.idx >= m.idx && state.idx < end) {
+        currentMatchIdx = i;
+        inMatch = true;
+        break;
+      }
+    }
+
+    this.matches.splice(0, currentMatchIdx);
+
     if (this.matches.length == 0) {
       stream.skipToEnd();
       return null;
-    }
-
-    const currentMatchIdx = this.matches.findIndex(m =>
-      state.idx >= m.idx &&
-      state.idx < m.idx + m.text.length);
-
-    let currentMatch;
-    if (currentMatchIdx > -1) {
-      currentMatch = this.matches[currentMatchIdx];
-    }
-
-    // Avoid re-scanning past matches.
-    if (currentMatchIdx > 0) {
-      this.matches.splice(0, currentMatchIdx);
     }
 
     stream.next();
@@ -50,11 +55,11 @@ export class RegexMatchMode implements Mode<RegexMatchState> {
     if (stream.eol())
       state.idx++;
 
-    if (!currentMatch) {
-      return null;
+    if (inMatch) {
+      return 'match'
     }
 
-    return 'match';
+    return null;
   }
 
   startState?(): RegexMatchState {
