@@ -5,7 +5,7 @@
   import { readText, writeText } from "@tauri-apps/api/clipboard";
   import CodeMirror from "../CodeMirror.svelte";
   import { rootState } from "../../state/store";
-  import { formatJson, indentations } from "../../util/json";
+  import { formatJson, indentations } from "../../lib/json";
 
   const state = $rootState.jsonFormatter
 

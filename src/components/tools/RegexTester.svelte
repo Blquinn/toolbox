@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { ModeSpec, ModeSpecOptions } from "codemirror";
-  import type { Match } from "../../util/regex-match-mode";
+  import type { Match } from "../../lib/regex-match-mode";
 
   import CodeMirror from "../CodeMirror.svelte";
   import Tool from "../Tool.svelte";
@@ -30,6 +30,8 @@
   function updateRex() {
     regexError = null;
 
+    if (!editor) return;
+
     const matches: Match[] = [];
     if ($state.regexText == "") {
       editor.setOption("mode", {
@@ -46,8 +48,6 @@
       regexError = e.toString();
       return;
     }
-
-    if (!editor) return;
 
     if ($state.activeFlags.includes('g')) {
       for (let m of editor.getValue().matchAll(re)) {

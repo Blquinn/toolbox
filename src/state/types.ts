@@ -1,8 +1,9 @@
 import type { Position } from 'codemirror';
 import type { Writable } from 'svelte/store';
-import type { Encodings, ModeType } from '../text-encodings';
-import type { TimeFormat } from '../time-conversion';
-import type { Match, RegexMatchState } from '../util/regex-match-mode';
+import type { Encodings, ModeType } from '../lib/text-encodings';
+import type { TimeFormat } from '../lib/time-conversion';
+import type { Match, RegexMatchState } from '../lib/regex-match-mode';
+import type { Mode } from '../lib/lorem';
 
 /////////////////////////////////////
 // JSONFormatter
@@ -81,12 +82,29 @@ export type RegexFlag =
     'u' |
     's' |
     'd'
-;
+    ;
 
 export interface RegexTesterState {
-  regexText: string,
-  editor: EditorState,
-  activeFlags: RegexFlag[],
+    regexText: string,
+    editor: EditorState,
+    activeFlags: RegexFlag[],
+}
+
+/////////////////////////////////////
+// LoremGenerator
+
+export type Words = "latin" | "hipster";
+
+export interface LoremGeneratorState {
+    amount: number;
+    activeMode: Mode;
+    editor: EditorState;
+    paragraphLowerBound: number;
+    paragraphUpperBound: number;
+    sentenceLowerBound: number;
+    sentenceUpperBound: number;
+    activeWords: Words;
+    settingsModalActive: boolean;
 }
 
 /////////////////////////////////////
@@ -100,8 +118,9 @@ export type Tool =
     'enc/jwt-decoder' |
     'fmt/json' |
     'text/diff' |
-    'text/regex-tester'
-;
+    'text/regex-tester' |
+    'text/lorem-generator'
+    ;
 
 export interface RootState {
     activeTool: Tool,
@@ -112,4 +131,5 @@ export interface RootState {
     textEncoder: Writable<TextEncoderState>,
     timestampConverter: Writable<TimestampConverterState>,
     regexTester: Writable<RegexTesterState>,
+    loremGenerator: Writable<LoremGeneratorState>,
 }

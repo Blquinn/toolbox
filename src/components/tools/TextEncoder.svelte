@@ -5,7 +5,7 @@
     type Encodings,
     EncoderMap,
     type ModeType,
-  } from "../../text-encodings";
+  } from "../../lib/text-encodings";
   import ConfigBox from "../ConfigBox.svelte";
   import { rootState } from "../../state/store";
 

@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
 import CodeMirror, { type Editor, type EditorChange } from 'codemirror'
-import { RegexMatchMode, type RegexMatchModeOpts } from '../util/regex-match-mode';
+import { RegexMatchMode, type RegexMatchModeOpts } from '../lib/regex-match-mode';
 import "codemirror/addon/fold/foldcode.js";
 import "codemirror/addon/fold/foldgutter.js";
 import "codemirror/addon/fold/brace-fold.js";

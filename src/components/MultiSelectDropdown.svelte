@@ -8,7 +8,7 @@
 
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import clickOutside from "../util/click-outside";
+  import clickOutside from "../lib/click-outside";
 
   export let options: Option<any>[];
   export let activeOptions: any[] = [];
@@ -22,9 +22,7 @@
       newOpts = activeOptions.filter((o) => o !== option);
     } else {
       // Only unique ids.
-      newOpts = [...activeOptions, option].filter(
-        (v, i, a) => a.indexOf(v) === i
-      );
+      newOpts = [...activeOptions, option].filter((v, i, a) => a.indexOf(v) === i);
     }
 
     dispatch("optionsChanged", newOpts);

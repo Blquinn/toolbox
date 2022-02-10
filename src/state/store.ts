@@ -9,7 +9,7 @@ import type {
   TextEncoderState,
   TimestampConverterState,
   JSONYamlConverterState,
-  RegexTesterState, Coord,
+  RegexTesterState, Coord, LoremGeneratorState,
 } from './types';
 
 const jsonFormatter: Writable<JSONFormatterState> = writable({
@@ -57,17 +57,34 @@ const jsonYamlConverter: Writable<JSONYamlConverterState> = writable({
 })
 
 export const regexTester: Writable<RegexTesterState> = writable({
-  regexText: 'foo|bar|baz',
+  regexText: '',
   editor: {
-    value: 'foo\nbar \naslkdfjbaz',
+    value: '',
     scroll: {x: 0, y: 0},
     cursorPos: {line: 0, ch: 0},
   },
   activeFlags: ['g', 'm'],
 })
 
+const loremGenerator: Writable<LoremGeneratorState> = writable({
+    amount: 5,
+    activeMode: 'paragraphs',
+    editor: {
+        value: '',
+        scroll: {x: 0, y: 0},
+        cursorPos: {line: 0, ch: 0},
+    },
+    paragraphLowerBound: 5,
+    paragraphUpperBound: 5,
+    sentenceLowerBound: 20,
+    sentenceUpperBound: 20,
+    activeWords: 'latin',
+    settingsModalActive: false,
+})
+
+
 export const rootState: Writable<RootState> = writable({
-    activeTool: 'text/regex-tester',
+    activeTool: 'text/lorem-generator',
     jsonFormatter,
     jsonYamlConverter,
     textDiff,
@@ -75,4 +92,5 @@ export const rootState: Writable<RootState> = writable({
     textEncoder,
     timestampConverter,
     regexTester,
+    loremGenerator,
 })

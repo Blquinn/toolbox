@@ -2,7 +2,7 @@
   import ConfigBox from "../ConfigBox.svelte";
   import Tool from "../Tool.svelte";
   import SelectDropdown from "../SelectDropdown.svelte";
-  import { formats, type Ops, type TimeFormat } from "../../time-conversion";
+  import { formats, type Ops, type TimeFormat } from "../../lib/time-conversion";
   import { rootState } from "../../state/store";
 
   const state = $rootState.timestampConverter;

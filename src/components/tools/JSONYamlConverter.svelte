@@ -2,13 +2,13 @@
 import ConfigBox from "../ConfigBox.svelte";
 import SelectDropdown from "../SelectDropdown.svelte";
 import Tool from "../Tool.svelte";
-import {formatJson, indentations} from '../../util/json';
+import {formatJson, indentations} from '../../lib/json';
 import { rootState } from "../../state/store";
 import type { JSONYamlConversions } from "../../state/types";
 import HSplitPane from "../HSplitPane.svelte";
 import CodeMirror from "../CodeMirror.svelte";
 import yaml from 'js-yaml';
-import debounce from "../../util/debounce";
+import debounce from "../../lib/debounce";
 import { onDestroy } from "svelte";
 
 const state = $rootState.jsonYamlConverter;

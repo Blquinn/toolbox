@@ -6,9 +6,10 @@
 	import TimestampConverter from "./components/tools/TimestampConverter.svelte";
 	import TextDiff from "./components/tools/TextDiff.svelte";
 	import { rootState } from "./state/store";
-import type { Tool } from "./state/types";
-import JsonYamlConverter from "./components/tools/JSONYamlConverter.svelte";
-import RegexTester from "./components/tools/RegexTester.svelte";
+	import type { Tool } from "./state/types";
+	import JsonYamlConverter from "./components/tools/JSONYamlConverter.svelte";
+	import RegexTester from "./components/tools/RegexTester.svelte";
+	import LoremGenerator from "./components/tools/LoremGenerator.svelte";
 	// import MarkdownEditor from "./components/tools/MarkdownEditor.svelte";
 
 	// type Tool =
@@ -52,6 +53,7 @@ import RegexTester from "./components/tools/RegexTester.svelte";
 			tools: [
 				['text/diff', 'Diff Viewer'],
 				['text/regex-tester', 'Regex Tester'],
+				['text/lorem-generator', 'Lorem Ipsum Generator'],
 			],
 		}
 	];
@@ -88,6 +90,8 @@ import RegexTester from "./components/tools/RegexTester.svelte";
 				<TextDiff />
 			{:else if $rootState.activeTool == 'text/regex-tester'}
 				<RegexTester />
+			{:else if $rootState.activeTool == 'text/lorem-generator'}
+				<LoremGenerator />
 			{/if}
 		</div>
 	</div>
