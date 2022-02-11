@@ -22,6 +22,7 @@
     "@types/js-yaml": "^4.0.5",
     "@types/utf8": "^3.0.1",
     "bulma": "^0.9.3",
+    "bulma-switch": "^2.0.4",
     "bulmaswatch": "^0.8.1",
     "codemirror": "^5.65.1",
     "diff-match-patch": "^1.0.5",
@@ -40,7 +41,8 @@
     "svelte-fa": "^2.4.0",
     "svelte-preprocess": "^4.0.0",
     "tslib": "^2.0.0",
-    "typescript": "^4.0.0"
+    "typescript": "^4.0.0",
+    "uuid": "^8.3.2"
   },
   "dependencies": {
     "sirv-cli": "^2.0.0"

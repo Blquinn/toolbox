@@ -11,6 +11,8 @@ import 'codemirror/mode/javascript/javascript';
 <script lang="ts">
     import { onMount } from 'svelte'
     import { createEventDispatcher } from 'svelte';
+import type { EditorState } from '../state/types';
+import { getEditorState, setEditorState } from '../state/codemirror';
 
     const dispatch = createEventDispatcher<{
         'editorCreated': Editor,
@@ -35,6 +37,14 @@ import 'codemirror/mode/javascript/javascript';
         editor.on("cursorActivity", (editor) => dispatch('cursorActivity', editor));
         editor.on("scroll", (editor) => dispatch('scroll', editor));
         dispatch('editorCreated', editor);
+    }
+
+    export function getState(): EditorState {
+        return getEditorState(editor);
+    }
+
+    export function setState(s: EditorState) {
+        setEditorState(editor, s);
     }
 
     onMount(() => {

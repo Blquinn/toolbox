@@ -108,6 +108,18 @@ export interface LoremGeneratorState {
 }
 
 /////////////////////////////////////
+// UUIDGenerator
+
+export type UUIDVersion = 1 | 4;
+
+export interface UUIDGeneratorState {
+    version: UUIDVersion;
+    count: number;
+    uppercase: boolean;
+    editor: EditorState,
+}
+
+/////////////////////////////////////
 // Root State
 
 export type Tool =
@@ -119,7 +131,8 @@ export type Tool =
     'fmt/json' |
     'text/diff' |
     'text/regex-tester' |
-    'text/lorem-generator'
+    'gen/lorem' |
+    'gen/uuid'
     ;
 
 export interface RootState {
@@ -132,4 +145,5 @@ export interface RootState {
     timestampConverter: Writable<TimestampConverterState>,
     regexTester: Writable<RegexTesterState>,
     loremGenerator: Writable<LoremGeneratorState>,
+    uuidGenerator: Writable<UUIDGeneratorState>,
 }
