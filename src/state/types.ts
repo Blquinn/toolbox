@@ -2,8 +2,8 @@ import type { Position } from 'codemirror';
 import type { Writable } from 'svelte/store';
 import type { Encodings, ModeType } from '../lib/text-encodings';
 import type { TimeFormat } from '../lib/time-conversion';
-import type { Match, RegexMatchState } from '../lib/regex-match-mode';
 import type { Mode } from '../lib/lorem';
+import type { UndoableWritable } from '../lib/undoable';
 
 /////////////////////////////////////
 // JSONFormatter
@@ -85,7 +85,7 @@ export type RegexFlag =
     ;
 
 export interface RegexTesterState {
-    regexText: string,
+    regexText: UndoableWritable<string>,
     editor: EditorState,
     activeFlags: RegexFlag[],
 }

@@ -202,6 +202,13 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
 
 .cm-s-default .cm-match {
   background-color: $blue;
+
+  $border-width: 2px;
+  &:hover {
+    border: $border-width solid lighten($blue, 20);
+    border-radius: $border-width;
+    margin: -$border-width;
+  }
 }
 
 ////////////////////////////////////////////////////////////

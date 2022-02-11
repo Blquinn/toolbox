@@ -9,8 +9,9 @@ import type {
   TextEncoderState,
   TimestampConverterState,
   JSONYamlConverterState,
-  RegexTesterState, Coord, LoremGeneratorState,
+  RegexTesterState, LoremGeneratorState,
 } from './types';
+import undoable from '../lib/undoable';
 
 const jsonFormatter: Writable<JSONFormatterState> = writable({
     activeIndent: '2-spaces',
@@ -57,7 +58,7 @@ const jsonYamlConverter: Writable<JSONYamlConverterState> = writable({
 })
 
 export const regexTester: Writable<RegexTesterState> = writable({
-  regexText: '',
+  regexText: undoable(writable('')),
   editor: {
     value: '',
     scroll: {x: 0, y: 0},

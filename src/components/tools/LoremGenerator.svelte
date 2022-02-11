@@ -213,6 +213,7 @@
       height: 100%;
       width: 100%;
       background-color: $grey-darker;
+      overflow: auto;
 
       .field {
         margin: 0;
