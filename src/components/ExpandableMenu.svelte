@@ -35,7 +35,7 @@
                     <li>
                         <a class:is-active={section[0] === activeSection}
                            on:click={() => onActiveSectionClicked(section[0])}
-                           href="/#"
+                           href="#0"
                         >{section[1]}</a>
                     </li>
                 {/each}
