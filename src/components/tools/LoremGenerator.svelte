@@ -191,7 +191,7 @@
     </button>
   </div>
 
-  <div class="block editor-cont">
+  <div class="editor-cont">
     <CodeMirror
       on:editorCreated={({ detail: e }) => onEditorCreated(e)}
       options={{
@@ -227,8 +227,6 @@
 
   .editor-cont {
     flex: 1;
-    display: flex;
-    flex-direction: column;
   }
 
   .button-cont {

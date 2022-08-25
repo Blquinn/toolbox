@@ -28,7 +28,7 @@
   ];
 
   function lineAndOffsetForIndex(str: string, index: number): [number, number] {
-    if (index >= str.length) {
+    if (index > str.length) {
       throw 'index >= str.length';
     }
 
@@ -60,7 +60,7 @@
       return;
     }
 
-    let re;
+    let re: RegExp;
     try {
       re = new RegExp($reTextState, $state.activeFlags.join(""));
     } catch (e) {
@@ -68,21 +68,19 @@
       return;
     }
 
-    if ($state.activeFlags.includes('g')) {
-      for (let m of editor.getValue().matchAll(re)) {
-        if (m[0] == '')
-          continue;
-
-        // TODO: We can easily optimize this.
+    let m: RegExpMatchArray;
+    const isGlobal = $state.activeFlags.includes('g');
+    const txt = editor.getValue();
+    while ((m = re.exec(txt)) !== null) {
+      // TODO: Mark null matches
+      if (m[0] !== '') {
         const [line, offset] = lineAndOffsetForIndex(m.input, m.index);
         const [endLine, endOffset] = lineAndOffsetForIndex(m.input, m.index+m[0].length);
         editor.markText({line: line, ch: offset}, {line: endLine, ch: endOffset}, {className: 'cm-match'})
       }
-    } else {
-      let m = editor.getValue().match(re);
-      if (m && m[0] != '') {
-        editor.markText({line: 0, ch: m.index}, {line: 0, ch: m[0].length}, {className: 'cm-match'})
-      }
+
+      if (!isGlobal)
+        break;
     }
   }
 

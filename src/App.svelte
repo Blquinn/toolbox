@@ -11,6 +11,7 @@
   import RegexTester from "./components/tools/RegexTester.svelte";
   import LoremGenerator from "./components/tools/LoremGenerator.svelte";
   import UuidGenerator from "./components/tools/UUIDGenerator.svelte";
+  import TextAnalyzer from "./components/tools/TextAnalyzer.svelte";
 
   interface ToolMenuSection {
     sectionHeader: string;
@@ -46,6 +47,7 @@
     {
       sectionHeader: "Text",
       tools: [
+        ["text/analyzer", "Text Analyzer"],
         ["text/diff", "Diff Viewer"],
         ["text/regex-tester", "Regex Tester"],
       ],
@@ -88,6 +90,8 @@
         <LoremGenerator />
       {:else if $rootState.activeTool == "gen/uuid"}
         <UuidGenerator />
+      {:else if $rootState.activeTool == "text/analyzer"}
+        <TextAnalyzer />
       {/if}
     </div>
   </div>

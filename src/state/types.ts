@@ -131,6 +131,7 @@ export type Tool =
     'fmt/json' |
     'text/diff' |
     'text/regex-tester' |
+    'text/analyzer' |
     'gen/lorem' |
     'gen/uuid'
     ;

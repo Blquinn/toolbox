@@ -70,6 +70,7 @@
       options={{
         lineNumbers: true,
         mode: "text",
+        readOnly: true,
       }}
     />
   </div>

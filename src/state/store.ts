@@ -95,7 +95,7 @@ const uuidGenerator: Writable<UUIDGeneratorState> = writable({
 })
 
 export const rootState: Writable<RootState> = writable({
-    activeTool: 'gen/uuid',
+    activeTool: 'gen/lorem',
     jsonFormatter,
     jsonYamlConverter,
     textDiff,

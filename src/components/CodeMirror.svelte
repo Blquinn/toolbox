@@ -11,8 +11,8 @@ import 'codemirror/mode/javascript/javascript';
 <script lang="ts">
     import { onMount } from 'svelte'
     import { createEventDispatcher } from 'svelte';
-import type { EditorState } from '../state/types';
-import { getEditorState, setEditorState } from '../state/codemirror';
+    import type { EditorState } from '../state/types';
+    import { getEditorState, setEditorState } from '../state/codemirror';
 
     const dispatch = createEventDispatcher<{
         'editorCreated': Editor,
@@ -22,7 +22,7 @@ import { getEditorState, setEditorState } from '../state/codemirror';
         'scroll': Editor,
     }>();
 
-    let classes = ''
+    export let classes = ''
 
     export let editor: CodeMirror.Editor = null;
     export let options: CodeMirror.EditorConfiguration = {};
@@ -52,13 +52,31 @@ import { getEditorState, setEditorState } from '../state/codemirror';
     });
 </script>
 
-<textarea id="editor" bind:this={element} class={classes + ' textarea'}>{options.value ?? ''}</textarea>
+    <div class="rel">
+      <div class="abs">
+        <textarea id="editor" bind:this={element} class={classes + ' textarea'}>{options.value ?? ''}</textarea>
+      </div>
+    </div>
 
 <style lang="scss">
     #editor {
         + :global(.CodeMirror) {
             font-family: 'Source Code Pro', monospace;
-            flex: 1;
+            height: 100%;
         }
+    }
+
+    .rel {
+      display: block;
+      position: relative;
+      height: 100%;
+      width: 100%;
+      .abs {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
     }
 </style>
