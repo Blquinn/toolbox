@@ -1,18 +1,18 @@
 <script lang="ts">
-  import Tool from "../Tool.svelte";
-  import CodeMirror from "../CodeMirror.svelte";
+  import { writeText } from "@tauri-apps/api/clipboard";
+  import { onDestroy } from "svelte";
   import {
-    lorem,
-    type Mode,
     HIPSTER_PHRASES,
     LATIN_PHRASES,
+    lorem,
+    type Mode,
   } from "../../lib/lorem";
-  import { writeText } from "@tauri-apps/api/clipboard";
+  import { rootState } from "../../state/store";
+  import type { Words } from "../../state/types";
+  import CodeMirror from "../CodeMirror.svelte";
   import ConfigBox from "../ConfigBox.svelte";
   import SelectDropdown from "../SelectDropdown.svelte";
-  import type { Words } from "../../state/types";
-  import { rootState } from "../../state/store";
-  import { onDestroy } from "svelte";
+  import Tool from "../Tool.svelte";
 
   const state = $rootState.loremGenerator;
 
@@ -203,7 +203,7 @@
 </Tool>
 
 <style lang="scss">
-  @import "src/style/style";
+  @import "src/style/variables";
 
   .modal-content {
     height: 75%;

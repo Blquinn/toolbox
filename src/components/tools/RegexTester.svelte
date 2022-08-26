@@ -1,14 +1,12 @@
 <script lang="ts">
-  import type { ModeSpec, ModeSpecOptions } from "codemirror";
-
-  import CodeMirror from "../CodeMirror.svelte";
-  import Tool from "../Tool.svelte";
+  import debounce from "../../lib/debounce";
   import { rootState } from "../../state/store";
+  import type { RegexFlag } from "../../state/types";
+  import CodeMirror from "../CodeMirror.svelte";
   import MultiSelectDropdown, {
     type Option,
   } from "../MultiSelectDropdown.svelte";
-  import type { RegexFlag } from "../../state/types";
-  import debounce from "../../lib/debounce";
+  import Tool from "../Tool.svelte";
 
   let editor: CodeMirror.Editor;
 
@@ -29,14 +27,14 @@
 
   function lineAndOffsetForIndex(str: string, index: number): [number, number] {
     if (index > str.length) {
-      throw 'index >= str.length';
+      throw "index >= str.length";
     }
 
     let line = 0;
     let offset = 0;
     for (let i = 0; i < index; i++) {
       const c = str[i];
-      if (c == '\n') {
+      if (c == "\n") {
         line++;
         offset = 0;
       } else {
@@ -54,7 +52,7 @@
 
     if (!editor) return;
 
-    editor.getAllMarks().forEach(m => m.clear());
+    editor.getAllMarks().forEach((m) => m.clear());
 
     if ($reTextState == "") {
       return;
@@ -69,26 +67,33 @@
     }
 
     let m: RegExpMatchArray;
-    const isGlobal = $state.activeFlags.includes('g');
+    const isGlobal = $state.activeFlags.includes("g");
     const txt = editor.getValue();
     while ((m = re.exec(txt)) !== null) {
       // TODO: Mark null matches
-      if (m[0] !== '') {
+      if (m[0] !== "") {
         const [line, offset] = lineAndOffsetForIndex(m.input, m.index);
-        const [endLine, endOffset] = lineAndOffsetForIndex(m.input, m.index+m[0].length);
-        editor.markText({line: line, ch: offset}, {line: endLine, ch: endOffset}, {className: 'cm-match'})
+        const [endLine, endOffset] = lineAndOffsetForIndex(
+          m.input,
+          m.index + m[0].length
+        );
+        editor.markText(
+          { line: line, ch: offset },
+          { line: endLine, ch: endOffset },
+          { className: "cm-match" }
+        );
       }
 
-      if (!isGlobal)
-        break;
+      if (!isGlobal) break;
     }
   }
 
   function onReTextKeydown(e: KeyboardEvent) {
-    if ((e.metaKey || e.ctrlKey) && e.which === 90) { // Z
-			e.preventDefault();
+    if ((e.metaKey || e.ctrlKey) && e.which === 90) {
+      // Z
+      e.preventDefault();
       e.shiftKey ? reTextState.redo() : reTextState.undo();
-		}
+    }
   }
 
   function editorLoaded(e: CodeMirror.Editor) {
@@ -112,7 +117,11 @@
       >
       <div class="control">
         <div id="re-input" class="input" class:is-danger={regexError}>
-          <input type="text" bind:value={$reTextState} on:keydown={onReTextKeydown} />
+          <input
+            type="text"
+            bind:value={$reTextState}
+            on:keydown={onReTextKeydown}
+          />
           <MultiSelectDropdown
             options={flagOptions}
             activeOptions={$state.activeFlags}
@@ -150,7 +159,8 @@
 </Tool>
 
 <style lang="scss">
-  @import "src/style/style";
+  @import "src/style/variables";
+  // @import "../../../node_modules/bulma/sass/base/generic.sass";
 
   #re-input {
     background-color: $grey-dark;

@@ -1,11 +1,11 @@
 <script>
   // TODO: Make me pretty.
 
-  import Tool from "../Tool.svelte";
   import CodeMirror from "codemirror";
   import "codemirror/addon/merge/merge";
   import { onMount } from "svelte";
   import { rootState } from "../../state/store";
+  import Tool from "../Tool.svelte";
 
   let mergeWrap;
   let mergeEl;
@@ -31,22 +31,22 @@
     editorLeft = merge.editor();
     editorRight = merge.rightOriginal();
 
-    editorLeft.on('blur', (editor, event) => {
+    editorLeft.on("blur", (editor, event) => {
       const s = editor.getScrollInfo();
       $state.left = {
         value: editor.getValue(),
-        scroll: {x: s.left, y: s.top},
+        scroll: { x: s.left, y: s.top },
         cursorPos: editor.getCursor(),
-      }
+      };
     });
 
-    editorRight.on('blur', (editor, event) => {
+    editorRight.on("blur", (editor, event) => {
       const s = editor.getScrollInfo();
       $state.right = {
         value: editor.getValue(),
-        scroll: {x: s.left, y: s.top},
+        scroll: { x: s.left, y: s.top },
         cursorPos: editor.getCursor(),
-      }
+      };
     });
 
     // TODO: Figure out scrolling for merge view.
@@ -82,7 +82,7 @@
 </Tool>
 
 <style lang="scss">
-  @import "src/style/style";
+  @import "src/style/variables";
 
   #diff-wrap {
     flex: 1;

@@ -1,17 +1,18 @@
 <script lang="ts">
   import ExpandableMenu from "./components/ExpandableMenu.svelte";
-  import TextEncoder from "./components/tools/TextEncoder.svelte";
-  import JwtDecoder from "./components/tools/JWTDecoder.svelte";
   import JsonFormatter from "./components/tools/JSONFormatter.svelte";
-  import TimestampConverter from "./components/tools/TimestampConverter.svelte";
+  import JsonYamlConverter from "./components/tools/JSONYamlConverter.svelte";
+  import JwtDecoder from "./components/tools/JWTDecoder.svelte";
+  import LoremGenerator from "./components/tools/LoremGenerator.svelte";
+  import RegexTester from "./components/tools/RegexTester.svelte";
+  import TextAnalyzer from "./components/tools/TextAnalyzer.svelte";
   import TextDiff from "./components/tools/TextDiff.svelte";
+  import TextEncoder from "./components/tools/TextEncoder.svelte";
+  import TimestampConverter from "./components/tools/TimestampConverter.svelte";
+  import UuidGenerator from "./components/tools/UUIDGenerator.svelte";
   import { rootState } from "./state/store";
   import type { Tool } from "./state/types";
-  import JsonYamlConverter from "./components/tools/JSONYamlConverter.svelte";
-  import RegexTester from "./components/tools/RegexTester.svelte";
-  import LoremGenerator from "./components/tools/LoremGenerator.svelte";
-  import UuidGenerator from "./components/tools/UUIDGenerator.svelte";
-  import TextAnalyzer from "./components/tools/TextAnalyzer.svelte";
+  import "./style/style.scss";
 
   interface ToolMenuSection {
     sectionHeader: string;
@@ -37,13 +38,13 @@
       sectionHeader: "Formatters",
       tools: [["fmt/json", "Json"]],
     },
-	{
-		sectionHeader: "Generators",
-		tools: [
-			["gen/lorem", "Lorem Ipsum Generator"],
-			["gen/uuid", "UUID Generator"],
-		]
-	},
+    {
+      sectionHeader: "Generators",
+      tools: [
+        ["gen/lorem", "Lorem Ipsum Generator"],
+        ["gen/uuid", "UUID Generator"],
+      ],
+    },
     {
       sectionHeader: "Text",
       tools: [
@@ -98,7 +99,7 @@
 </main>
 
 <style global lang="scss">
-  @import "style/style.scss";
+  @import "style/variables.scss";
 
   #app-main {
     margin: 0 auto;

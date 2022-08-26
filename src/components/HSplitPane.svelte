@@ -1,7 +1,6 @@
 <!-- Sourced from: https://github.com/Readiz/svelte-split-pane -->
-
 <script lang="ts">
-  import { onMount, onDestroy } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   let separator;
   export let updateCallback = () => {};
   let md;
@@ -82,7 +81,7 @@
     on:mousedown={onMouseDownWrapper}
     on:touchstart={onMouseDownWrapper}
   >
-    <div class="separator-icon"></div>
+    <div class="separator-icon" />
   </div>
   <div bind:this={right} class="right">
     <slot name="right">
@@ -92,7 +91,7 @@
 </div>
 
 <style lang="scss">
-  @import 'src/style/style';
+  @import "src/style/variables";
 
   div.wrapper {
     width: 100%;
