@@ -98,7 +98,7 @@
   </div>
 </main>
 
-<style global lang="scss">
+<style lang="scss">
   @import "style/variables.scss";
 
   #app-main {

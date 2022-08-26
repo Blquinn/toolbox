@@ -58,9 +58,9 @@ export default {
         handler(warning);
       },
     }),
+    scss(),
     // we'll extract any component CSS out into
     // a separate file - better for performance
-    scss(),
     css({ output: 'bundle.css' }),
 
     // If you have external dependencies installed from
@@ -79,6 +79,8 @@ export default {
       inlineSources: !production
     }),
     copy({
+      copyOnce: 'true',
+      hook: "closeBundle",
       targets: [
         { src: 'node_modules/diff-match-patch/index.js', dest: 'public/build/diff-match-patch' },
       ]

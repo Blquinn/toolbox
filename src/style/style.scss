@@ -1,5 +1,3 @@
-// @import '../../node_modules/bulmaswatch/darkly/_variables';
-// @import '../../node_modules/bulma/sass/utilities/derived-variables.sass';
 @import 'variables';
 @import '../../node_modules/bulma/bulma';
 @import '../../node_modules/bulmaswatch/darkly/_overrides';
@@ -103,8 +101,6 @@ $mirror-box-shadow: inset 0 0 5px lighten(black, 5);
   white-space: nowrap;
 }
 
-.CodeMirror-linenumbers {}
-
 .CodeMirror-linenumber {
   padding: 0 3px 0 5px;
   min-width: 20px;
@@ -190,9 +186,6 @@ $mirror-box-shadow: inset 0 0 5px lighten(black, 5);
   100% {}
 }
 
-/* Can style cursor different in overwrite (non-insert) mode */
-.CodeMirror-overwrite .CodeMirror-cursor {}
-
 .cm-tab {
   display: inline-block;
   text-decoration: inherit;
@@ -264,11 +257,6 @@ $mirror-box-shadow: inset 0 0 5px lighten(black, 5);
 .cm-s-default .cm-def {
   color: #00f;
 }
-
-.cm-s-default .cm-variable,
-.cm-s-default .cm-punctuation,
-.cm-s-default .cm-property,
-.cm-s-default .cm-operator {}
 
 .cm-s-default .cm-variable-2 {
   color: #05a;

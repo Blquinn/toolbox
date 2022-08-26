@@ -160,7 +160,6 @@
 
 <style lang="scss">
   @import "src/style/variables";
-  // @import "../../../node_modules/bulma/sass/base/generic.sass";
 
   #re-input {
     background-color: $grey-dark;
@@ -169,8 +168,12 @@
       border: none;
       background-color: transparent;
       color: $white-ter;
-      font-size: $body-font-size;
+      font-size: 1em;
       width: 100%;
+
+      &:focus-visible {
+        outline: none;
+      }
     }
 
     .select-dropdown-btn {
